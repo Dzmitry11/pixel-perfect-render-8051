@@ -14,16 +14,133 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      contact_request_notes: {
+        Row: {
+          author_id: string
+          body: string
+          created_at: string
+          id: string
+          request_id: string
+        }
+        Insert: {
+          author_id?: string
+          body: string
+          created_at?: string
+          id?: string
+          request_id: string
+        }
+        Update: {
+          author_id?: string
+          body?: string
+          created_at?: string
+          id?: string
+          request_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "contact_request_notes_request_id_fkey"
+            columns: ["request_id"]
+            isOneToOne: false
+            referencedRelation: "contact_requests"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      contact_requests: {
+        Row: {
+          budget: string | null
+          company: string | null
+          created_at: string
+          email: string
+          id: string
+          locale: string | null
+          name: string
+          phone: string | null
+          project_description: string
+          project_stage: string | null
+          services: string[]
+          status: Database["public"]["Enums"]["lead_status"]
+          timeline: string | null
+          updated_at: string
+          work_preference: string | null
+        }
+        Insert: {
+          budget?: string | null
+          company?: string | null
+          created_at?: string
+          email: string
+          id?: string
+          locale?: string | null
+          name: string
+          phone?: string | null
+          project_description: string
+          project_stage?: string | null
+          services?: string[]
+          status?: Database["public"]["Enums"]["lead_status"]
+          timeline?: string | null
+          updated_at?: string
+          work_preference?: string | null
+        }
+        Update: {
+          budget?: string | null
+          company?: string | null
+          created_at?: string
+          email?: string
+          id?: string
+          locale?: string | null
+          name?: string
+          phone?: string | null
+          project_description?: string
+          project_stage?: string | null
+          services?: string[]
+          status?: Database["public"]["Enums"]["lead_status"]
+          timeline?: string | null
+          updated_at?: string
+          work_preference?: string | null
+        }
+        Relationships: []
+      }
+      user_roles: {
+        Row: {
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      claim_owner_admin: { Args: never; Returns: boolean }
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "admin" | "user"
+      lead_status:
+        | "new"
+        | "in_progress"
+        | "contacted"
+        | "qualified"
+        | "closed"
+        | "spam"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +267,16 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["admin", "user"],
+      lead_status: [
+        "new",
+        "in_progress",
+        "contacted",
+        "qualified",
+        "closed",
+        "spam",
+      ],
+    },
   },
 } as const
