@@ -54,7 +54,7 @@ export type Project = {
   filters: ProjectFilter[];
   tech: string[];
   highlights?: string[];
-  url?: string; // leave undefined to show "Link coming soon"
+  url?: string | undefined; // leave undefined to show "Link coming soon"
   github?: string;
 };
 
