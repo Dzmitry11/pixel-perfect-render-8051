@@ -2,7 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { ArrowUpRight } from "lucide-react";
 
 import { Tag } from "@/components/site/primitives";
-import { contact, type Project, type ServiceKey } from "@/content/site";
+import { contact, services, type Project, type ServiceKey } from "@/content/site";
 import { useI18n } from "@/i18n";
 import { track } from "@/lib/analytics";
 import { cn } from "@/lib/utils";
@@ -102,13 +102,14 @@ export function ProjectCard({ project }: { project: Project }) {
 export function ServiceCard({ serviceKey }: { serviceKey: ServiceKey }) {
   const { t } = useI18n();
   const service = t.services.items[serviceKey];
+  const entry = services.find((s) => s.key === serviceKey);
 
   return (
     <article className="flex flex-col gap-4 border border-border bg-surface p-6 transition-colors hover:border-foreground/30">
       <div className="flex items-baseline justify-between gap-4">
         <h3 className="font-display text-xl font-semibold tracking-tight">{service.title}</h3>
         <span className="font-mono text-[10px] uppercase tracking-[0.14em] text-muted-foreground">
-          {serviceKey}
+          {entry?.code ?? serviceKey}
         </span>
       </div>
       <p className="text-sm leading-relaxed text-muted-foreground">{service.desc}</p>
@@ -120,9 +121,11 @@ export function ServiceCard({ serviceKey }: { serviceKey: ServiceKey }) {
           </li>
         ))}
       </ul>
+      {entry && <TechChips items={entry.tech} max={8} />}
       <div className="mt-auto flex flex-wrap items-center justify-between gap-3 pt-3">
         <Link
           to="/contact"
+          onClick={() => track("contact_started", { source: "service_card", service: serviceKey })}
           className="inline-flex items-center gap-1 text-sm font-medium text-foreground hover:text-pine"
         >
           {t.cta.discussShort} <ArrowUpRight className="size-3.5" />
