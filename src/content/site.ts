@@ -2,8 +2,12 @@
 import dinliaImg from "@/assets/project-dinlia.jpg";
 import aiImg from "@/assets/project-ai-assistant.jpg";
 import webappImg from "@/assets/project-webapp.jpg";
+import portraitAsset from "@/assets/dzmitry-nikalayeu.jpg.asset.json";
 
 export const SITE_URL = "https://dzmitry-nikalayeu.lovable.app";
+
+/** Real portrait photo, served from CDN storage (see src/assets/dzmitry-nikalayeu.jpg.asset.json). */
+export const portrait = portraitAsset.url;
 
 export const contact = {
   name: "Dzmitry Nikalayeu",
@@ -13,7 +17,7 @@ export const contact = {
     { label: "SE", display: "+46 761 573 328", tel: "+46761573328" },
   ],
   github: "https://github.com/Dzmitry11",
-  linkedin: "https://www.linkedin.com/in/dzmitry-nikalayeu", // update if profile URL differs
+  linkedin: "https://www.linkedin.com/in/dzmitry-nikalayeu-51bab1130/",
 };
 
 export const navigation = [

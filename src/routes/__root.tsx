@@ -12,6 +12,9 @@ import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
+import { I18nProvider } from "@/i18n";
+import { Toaster } from "@/components/ui/sonner";
+import { SITE_URL } from "@/content/site";
 
 function NotFoundComponent() {
   return (
@@ -78,21 +81,35 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
-      { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { title: "Dzmitry Nikalayeu — Software & Cloud Engineer" },
+      {
+        name: "description",
+        content:
+          "Independent Software & Cloud Engineer helping businesses build, modernize and maintain reliable digital products: web apps, APIs, AWS infrastructure, DevOps and AI integrations.",
+      },
+      { name: "author", content: "Dzmitry Nikalayeu" },
+      { property: "og:title", content: "Dzmitry Nikalayeu — Software & Cloud Engineer" },
+      {
+        property: "og:description",
+        content:
+          "Web, backend, cloud and AI engineering for businesses. One engineer across the whole delivery chain — idea to production.",
+      },
       { property: "og:type", content: "website" },
+      { property: "og:url", content: SITE_URL },
+      { property: "og:site_name", content: "Dzmitry Nikalayeu" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:site", content: "@Lovable" },
+      { name: "theme-color", content: "#f9f8f4" },
     ],
     links: [
+      { rel: "stylesheet", href: appCss },
+      { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
+      { rel: "canonical", href: SITE_URL },
+      { rel: "preconnect", href: "https://fonts.googleapis.com" },
+      { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
         rel: "stylesheet",
-        href: appCss,
+        href: "https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:ital,wght@0,400..900;1,400..900&family=JetBrains+Mono:wght@400;500;600&display=swap",
       },
-      { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
     ],
   }),
   shellComponent: RootShell,
@@ -120,8 +137,10 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
-      <Outlet />
+      <I18nProvider>
+        <Outlet />
+        <Toaster position="bottom-right" />
+      </I18nProvider>
     </QueryClientProvider>
   );
 }
