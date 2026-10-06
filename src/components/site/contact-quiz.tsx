@@ -128,6 +128,7 @@ export function ContactQuiz() {
   }
 
   function next() {
+    if (!step) return;
     const problem = validate(step);
     if (problem) {
       setError(problem);
