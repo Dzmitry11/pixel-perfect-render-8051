@@ -15,20 +15,15 @@ export const Route = createFileRoute("/portfolio/$slug")({
   head: ({ params }) => {
     const project = projects.find((p) => p.key === params.slug);
     const title = project ? `${project.name} — Case Study` : "Project case study";
+    const description = project
+      ? `${project.name}: ${project.tech.join(", ")} — engineering case study by Dzmitry Nikalayeu.`
+      : "Engineering case studies by Dzmitry Nikalayeu.";
     return {
       meta: [
         { title: `${title} · Dzmitry Nikalayeu` },
-        {
-          name: "description",
-          content: project
-            ? `${project.name}: ${project.desc}`
-            : "Engineering case studies by Dzmitry Nikalayeu.",
-        },
+        { name: "description", content: description },
         { property: "og:title", content: title },
-        {
-          property: "og:description",
-          content: project ? project.desc : "Engineering case studies by Dzmitry Nikalayeu.",
-        },
+        { property: "og:description", content: description },
         { property: "og:type", content: "article" },
         { name: "twitter:card", content: "summary_large_image" },
       ],
@@ -44,7 +39,9 @@ export const Route = createFileRoute("/portfolio/$slug")({
 
 function ProjectCase() {
   const { t } = useI18n();
-  const project = Route.useLoaderData();
+  const { slug } = Route.useParams();
+  const project = projects.find((p) => p.key === slug);
+  if (!project) return null;
   const copy = t.portfolio.projects[project.key];
 
   useEffect(() => {
