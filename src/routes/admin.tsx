@@ -77,7 +77,7 @@ function AdminOverview() {
           <Link
             key={r.id}
             to="/admin/messages"
-            search={{ selected: r.id }}
+            search={{ selected: r.id as string }}
             className="flex flex-wrap items-center justify-between gap-3 px-4 py-3 transition-colors hover:bg-background"
           >
             <div className="min-w-0">

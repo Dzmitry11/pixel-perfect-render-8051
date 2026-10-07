@@ -113,7 +113,7 @@ function AdminMessages() {
       const { data: sessionData } = await supabase.auth.getSession();
       const { error } = await supabase.from("contact_request_notes").insert({
         request_id: requestId,
-        author_id: sessionData.session?.user.id ?? null,
+        author_id: sessionData.session?.user.id,
         body,
       });
       if (error) throw error;
