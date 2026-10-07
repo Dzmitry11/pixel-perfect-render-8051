@@ -69,7 +69,6 @@ function AdminMessages() {
       return data as Note[];
     },
     placeholderData: (prev) => prev,
-    },
   });
 
   const requests = requestsQuery.data ?? [];
