@@ -1,11 +1,12 @@
 import { useState } from "react";
-import { ArrowLeft, ArrowRight, Check } from "lucide-react";
+import { ArrowLeft, ArrowRight, Check, Clock } from "lucide-react";
 import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import { contact } from "@/content/site";
 import { useI18n } from "@/i18n";
 import { supabase } from "@/integrations/supabase/client";
 import { track } from "@/lib/analytics";
@@ -179,24 +180,56 @@ export function ContactQuiz() {
 
   if (done) {
     return (
-      <div className="border border-border bg-surface p-8 text-center md:p-12">
-        <span className="mx-auto flex size-10 items-center justify-center rounded-full border border-pine bg-pine-soft">
-          <Check className="size-5 text-pine" />
-        </span>
-        <h2 className="mt-5 font-display text-2xl font-semibold tracking-tight">{t.quiz.successTitle}</h2>
-        <p className="mx-auto mt-3 max-w-md text-sm leading-relaxed text-muted-foreground">{t.quiz.success}</p>
-        <Button
-          variant="quiet"
-          size="lg"
-          className="mt-7"
-          onClick={() => {
-            setForm(EMPTY);
-            setIndex(0);
-            setDone(false);
-          }}
-        >
-          {t.quiz.another}
-        </Button>
+      <div className="border border-border bg-surface p-8 md:p-12">
+        <div className="text-center">
+          <span className="mx-auto flex size-12 items-center justify-center rounded-full border border-pine bg-pine-soft">
+            <Check className="size-6 text-pine" />
+          </span>
+          <h2 className="mt-6 font-display text-2xl font-semibold tracking-tight">{t.quiz.successTitle}</h2>
+          <p className="mx-auto mt-3 max-w-md text-sm leading-relaxed text-muted-foreground">{t.quiz.success}</p>
+        </div>
+
+        <div className="mx-auto mt-8 max-w-md border border-pine/40 bg-pine-soft px-5 py-4">
+          <div className="flex items-center gap-4">
+            <Clock className="size-5 shrink-0 text-pine" aria-hidden />
+            <div>
+              <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-muted-foreground">
+                {t.quiz.responseLabel}
+              </p>
+              <p className="text-sm font-semibold text-foreground">{t.quiz.responseTime}</p>
+            </div>
+          </div>
+        </div>
+
+        <div className="mx-auto mt-8 max-w-md">
+          <p className="eyebrow">{t.quiz.nextTitle}</p>
+          <ol className="mt-4 space-y-3">
+            {t.quiz.nextSteps.map((s, i) => (
+              <li key={s} className="flex items-start gap-3 text-sm leading-relaxed text-foreground">
+                <span
+                  aria-hidden
+                  className="mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-full border border-border bg-background font-mono text-[10px] text-muted-foreground"
+                >
+                  {i + 1}
+                </span>
+                {s}
+              </li>
+            ))}
+          </ol>
+        </div>
+
+        <p className="mx-auto mt-8 max-w-md border-t border-border pt-6 text-center text-sm text-muted-foreground">
+          {t.contact.direct}{" "}
+          <a href={`mailto:${contact.email}`} className="text-pine hover:underline">
+            {contact.email}
+          </a>
+        </p>
+
+        <div className="mt-6 text-center">
+          <Button variant="quiet" size="lg" onClick={reset}>
+            {t.quiz.another}
+          </Button>
+        </div>
       </div>
     );
   }
