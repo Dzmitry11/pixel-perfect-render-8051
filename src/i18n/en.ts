@@ -208,7 +208,15 @@ export const en = {
     send: "Send Project Request",
     sending: "Sending…",
     successTitle: "Request received",
-    success: "Thank you. Your request has been received. I will review it and get back to you.",
+    success: "Your project request has been sent successfully. Here's what happens next.",
+    responseLabel: "Expected response time",
+    responseTime: "Within 1 business day",
+    nextTitle: "What happens next",
+    nextSteps: [
+      "I review your request and my current availability.",
+      "You get a reply by email — with any questions or a proposed time for a short call.",
+      "If we're a good fit, you receive a clear scope, timeline and quote.",
+    ],
     another: "Send another request",
     errors: {
       services: "Please choose at least one option.",
