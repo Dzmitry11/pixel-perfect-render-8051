@@ -18,6 +18,7 @@ import { Route as PortfolioRouteImport } from './routes/portfolio'
 import { Route as ServicesRouteImport } from './routes/services'
 import { Route as TechnologiesRouteImport } from './routes/technologies'
 import { Route as AdminLoginRouteImport } from './routes/admin.login'
+import { Route as AdminMessagesRouteImport } from './routes/admin.messages'
 import { Route as AdminSettingsRouteImport } from './routes/admin.settings'
 import { Route as PortfolioSlugRouteImport } from './routes/portfolio.$slug'
 
@@ -66,6 +67,11 @@ const AdminLoginRoute = AdminLoginRouteImport.update({
   path: '/login',
   getParentRoute: () => AdminRoute,
 } as any)
+const AdminMessagesRoute = AdminMessagesRouteImport.update({
+  id: '/messages',
+  path: '/messages',
+  getParentRoute: () => AdminRoute,
+} as any)
 const AdminSettingsRoute = AdminSettingsRouteImport.update({
   id: '/settings',
   path: '/settings',
@@ -87,6 +93,7 @@ export interface FileRoutesByFullPath {
   '/services': typeof ServicesRoute
   '/technologies': typeof TechnologiesRoute
   '/admin/login': typeof AdminLoginRoute
+  '/admin/messages': typeof AdminMessagesRoute
   '/admin/settings': typeof AdminSettingsRoute
   '/portfolio/$slug': typeof PortfolioSlugRoute
 }
@@ -100,6 +107,7 @@ export interface FileRoutesByTo {
   '/services': typeof ServicesRoute
   '/technologies': typeof TechnologiesRoute
   '/admin/login': typeof AdminLoginRoute
+  '/admin/messages': typeof AdminMessagesRoute
   '/admin/settings': typeof AdminSettingsRoute
   '/portfolio/$slug': typeof PortfolioSlugRoute
 }
@@ -114,6 +122,7 @@ export interface FileRoutesById {
   '/services': typeof ServicesRoute
   '/technologies': typeof TechnologiesRoute
   '/admin/login': typeof AdminLoginRoute
+  '/admin/messages': typeof AdminMessagesRoute
   '/admin/settings': typeof AdminSettingsRoute
   '/portfolio/$slug': typeof PortfolioSlugRoute
 }
@@ -129,6 +138,7 @@ export interface FileRouteTypes {
     | '/services'
     | '/technologies'
     | '/admin/login'
+    | '/admin/messages'
     | '/admin/settings'
     | '/portfolio/$slug'
   fileRoutesByTo: FileRoutesByTo
@@ -142,6 +152,7 @@ export interface FileRouteTypes {
     | '/services'
     | '/technologies'
     | '/admin/login'
+    | '/admin/messages'
     | '/admin/settings'
     | '/portfolio/$slug'
   id:
@@ -155,6 +166,7 @@ export interface FileRouteTypes {
     | '/services'
     | '/technologies'
     | '/admin/login'
+    | '/admin/messages'
     | '/admin/settings'
     | '/portfolio/$slug'
   fileRoutesById: FileRoutesById
@@ -235,6 +247,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminLoginRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/admin/messages': {
+      id: '/admin/messages'
+      path: '/messages'
+      fullPath: '/admin/messages'
+      preLoaderRoute: typeof AdminMessagesRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/admin/settings': {
       id: '/admin/settings'
       path: '/settings'
@@ -254,11 +273,13 @@ declare module '@tanstack/react-router' {
 
 interface AdminRouteChildren {
   AdminLoginRoute: typeof AdminLoginRoute
+  AdminMessagesRoute: typeof AdminMessagesRoute
   AdminSettingsRoute: typeof AdminSettingsRoute
 }
 
 const AdminRouteChildren: AdminRouteChildren = {
   AdminLoginRoute: AdminLoginRoute,
+  AdminMessagesRoute: AdminMessagesRoute,
   AdminSettingsRoute: AdminSettingsRoute,
 }
 
