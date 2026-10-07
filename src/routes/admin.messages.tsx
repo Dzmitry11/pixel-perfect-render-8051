@@ -20,9 +20,10 @@ const STATUS_KEYS = ["new", "in_progress", "contacted", "qualified", "closed", "
 type Status = (typeof STATUS_KEYS)[number];
 
 export const Route = createFileRoute("/admin/messages")({
-  validateSearch: (search: Record<string, unknown>) => ({
-    selected: typeof search["selected"] === "string" ? (search["selected"] as string) : undefined,
-  }),
+  validateSearch: (search: Record<string, unknown>): { selected?: string } => {
+    const value = search["selected"];
+    return typeof value === "string" ? { selected: value } : {};
+  },
   head: () => ({
     meta: [
       { title: "Messages — Admin — Dzmitry Nikalayeu" },
@@ -111,9 +112,11 @@ function AdminMessages() {
   const noteMutation = useMutation({
     mutationFn: async ({ requestId, body }: { requestId: string; body: string }) => {
       const { data: sessionData } = await supabase.auth.getSession();
+      const authorId = sessionData.session?.user.id;
+      if (!authorId) throw new Error("Not signed in");
       const { error } = await supabase.from("contact_request_notes").insert({
         request_id: requestId,
-        author_id: sessionData.session?.user.id,
+        author_id: authorId,
         body,
       });
       if (error) throw error;
