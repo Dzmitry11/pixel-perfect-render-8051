@@ -59,6 +59,7 @@ function AdminOverview() {
         <h2 className="font-display text-lg font-semibold tracking-tight">{t.admin.recent}</h2>
         <Link
           to="/admin/messages"
+          search={{}}
           className="inline-flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-[0.14em] text-pine hover:underline"
         >
           {t.admin.viewAll} <ArrowRight className="size-3.5" />

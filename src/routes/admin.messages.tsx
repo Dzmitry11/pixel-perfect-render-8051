@@ -21,7 +21,7 @@ type Status = (typeof STATUS_KEYS)[number];
 
 export const Route = createFileRoute("/admin/messages")({
   validateSearch: (search: Record<string, unknown>) => ({
-    selected: typeof search.selected === "string" ? search.selected : undefined,
+    selected: typeof search["selected"] === "string" ? (search["selected"] as string) : undefined,
   }),
   head: () => ({
     meta: [
@@ -67,6 +67,8 @@ function AdminMessages() {
         .order("created_at", { ascending: true });
       if (error) throw error;
       return data as Note[];
+    },
+    placeholderData: (prev) => prev,
     },
   });
 
@@ -131,7 +133,7 @@ function AdminMessages() {
     },
     onSuccess: () => {
       invalidate();
-      navigate({ search: { selected: undefined } });
+      navigate({ search: {} });
     },
   });
 
