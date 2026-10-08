@@ -145,6 +145,13 @@ export function ContactQuiz() {
     setIndex((i) => Math.max(i - 1, 0));
   }
 
+  function reset() {
+    setForm(EMPTY);
+    setIndex(0);
+    setError(null);
+    setDone(false);
+  }
+
   async function submit() {
     if (form.website) {
       setDone(true);
