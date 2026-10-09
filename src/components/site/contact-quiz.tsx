@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { ArrowLeft, ArrowRight, Check, Clock } from "lucide-react";
+import { ArrowLeft, ArrowRight, Check, Clock, Sparkles } from "lucide-react";
+import { summarizeProjectBrief } from "@/lib/project-brief.functions";
 import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
@@ -101,6 +102,33 @@ export function ContactQuiz() {
   const [error, setError] = useState<string | null>(null);
   const [sending, setSending] = useState(false);
   const [done, setDone] = useState(false);
+  const [ai, setAi] = useState<{ summary: string[]; nextStep: string } | null>(null);
+  const [aiLoading, setAiLoading] = useState(false);
+  const [aiError, setAiError] = useState<string | null>(null);
+
+  async function runAi() {
+    setAiLoading(true);
+    setAiError(null);
+    try {
+      const res = await summarizeProjectBrief({
+        data: {
+          services: form.services,
+          description: form.description.trim(),
+          stage: form.stage,
+          budget: form.budget,
+          timeline: form.timeline,
+          preference: form.preference,
+          locale: locale as "en" | "sv" | "pl" | "ru",
+        },
+      });
+      if (res.ok) setAi({ summary: res.summary, nextStep: res.nextStep });
+      else setAiError(res.error);
+    } catch {
+      setAiError(t.quiz.errors.generic);
+    } finally {
+      setAiLoading(false);
+    }
+  }
 
   const step = STEPS[index];
   const total = STEPS.length;
@@ -448,6 +476,36 @@ export function ContactQuiz() {
                 </div>
               ))}
             </dl>
+
+            <div className="mt-6 border border-pine/40 bg-pine-soft p-5">
+              <div className="flex flex-wrap items-center justify-between gap-3">
+                <p className="eyebrow flex items-center gap-2">
+                  <Sparkles className="size-3.5 text-pine" aria-hidden /> {t.quiz.aiTitle}
+                </p>
+                {!ai && (
+                  <Button variant="quiet" onClick={runAi} disabled={aiLoading}>
+                    {aiLoading ? t.quiz.aiLoading : t.quiz.aiButton}
+                  </Button>
+                )}
+              </div>
+              {aiError && <p className="mt-3 text-sm text-destructive">{aiError}</p>}
+              {ai && (
+                <div className="mt-4 space-y-4 text-sm leading-relaxed text-foreground">
+                  <ul className="list-disc space-y-1 pl-5">
+                    {ai.summary.map((s) => (
+                      <li key={s}>{s}</li>
+                    ))}
+                  </ul>
+                  <div>
+                    <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-muted-foreground">
+                      {t.quiz.aiNext}
+                    </p>
+                    <p className="mt-1 font-semibold">{ai.nextStep}</p>
+                  </div>
+                  <p className="text-xs text-muted-foreground">{t.quiz.aiNote}</p>
+                </div>
+              )}
+            </div>
           </div>
         )}
 

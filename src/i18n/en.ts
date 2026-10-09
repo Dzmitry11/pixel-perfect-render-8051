@@ -180,6 +180,11 @@ export const en = {
     availabilityItems: ["Remote internationally", "Onsite in Poland", "Onsite in Sweden"],
   },
   quiz: {
+    aiTitle: "AI summary of your project",
+    aiButton: "Summarize my project with AI",
+    aiLoading: "Analyzing your answers…",
+    aiNext: "Recommended next step",
+    aiNote: "Generated automatically — Dzmitry will review your request personally.",
     step: "Step",
     of: "of",
     q1: "What can I help you with?",

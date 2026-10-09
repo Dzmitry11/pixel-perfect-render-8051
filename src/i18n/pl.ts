@@ -121,6 +121,11 @@ export const pl: Dict = {
     locations: ["Polska", "Szwecja"], availabilityItems: ["Zdalnie międzynarodowo", "Na miejscu w Polsce", "Na miejscu w Szwecji"],
   },
   quiz: {
+    aiTitle: "Podsumowanie projektu przez AI",
+    aiButton: "Podsumuj mój projekt z AI",
+    aiLoading: "Analizuję odpowiedzi…",
+    aiNext: "Rekomendowany następny krok",
+    aiNote: "Wygenerowano automatycznie — Dzmitry osobiście przejrzy zapytanie.",
     step: "Krok", of: "z",
     q1: "W czym mogę pomóc?", q1hint: "Wybierz wszystkie pasujące.",
     services: ["Strona internetowa", "Aplikacja webowa", "Backend / API", "Chmura / AWS", "DevOps / infrastruktura", "Integracja AI / LLM", "Doradztwo techniczne", "Coś innego"],
