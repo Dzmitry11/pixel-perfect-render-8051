@@ -100,6 +100,36 @@ export type Database = {
         }
         Relationships: []
       }
+      page_visits: {
+        Row: {
+          city: string | null
+          country: string | null
+          created_at: string
+          id: string
+          path: string
+          referrer: string | null
+          visitor_id: string
+        }
+        Insert: {
+          city?: string | null
+          country?: string | null
+          created_at?: string
+          id?: string
+          path: string
+          referrer?: string | null
+          visitor_id: string
+        }
+        Update: {
+          city?: string | null
+          country?: string | null
+          created_at?: string
+          id?: string
+          path?: string
+          referrer?: string | null
+          visitor_id?: string
+        }
+        Relationships: []
+      }
       user_roles: {
         Row: {
           id: string
