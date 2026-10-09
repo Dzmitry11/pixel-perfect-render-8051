@@ -20,7 +20,7 @@ export type BriefResult =
 export const summarizeProjectBrief = createServerFn({ method: "POST" })
   .inputValidator((d: unknown) => Input.parse(d))
   .handler(async ({ data }): Promise<BriefResult> => {
-    const apiKey = process.env.LOVABLE_API_KEY;
+    const apiKey = process.env["LOVABLE_API_KEY"];
     if (!apiKey) return { ok: false, error: "AI is not configured." };
 
     const { createOpenAI } = await import("@ai-sdk/openai");
