@@ -21,6 +21,7 @@ import { Route as AdminLoginRouteImport } from './routes/admin.login'
 import { Route as AdminMessagesRouteImport } from './routes/admin.messages'
 import { Route as AdminSettingsRouteImport } from './routes/admin.settings'
 import { Route as PortfolioSlugRouteImport } from './routes/portfolio.$slug'
+import { Route as ApiPublicSetupOwnerRouteImport } from './routes/api/public/setup-owner'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -82,6 +83,11 @@ const PortfolioSlugRoute = PortfolioSlugRouteImport.update({
   path: '/$slug',
   getParentRoute: () => PortfolioRoute,
 } as any)
+const ApiPublicSetupOwnerRoute = ApiPublicSetupOwnerRouteImport.update({
+  id: '/api/public/setup-owner',
+  path: '/api/public/setup-owner',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -96,6 +102,7 @@ export interface FileRoutesByFullPath {
   '/admin/messages': typeof AdminMessagesRoute
   '/admin/settings': typeof AdminSettingsRoute
   '/portfolio/$slug': typeof PortfolioSlugRoute
+  '/api/public/setup-owner': typeof ApiPublicSetupOwnerRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -110,6 +117,7 @@ export interface FileRoutesByTo {
   '/admin/messages': typeof AdminMessagesRoute
   '/admin/settings': typeof AdminSettingsRoute
   '/portfolio/$slug': typeof PortfolioSlugRoute
+  '/api/public/setup-owner': typeof ApiPublicSetupOwnerRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -125,6 +133,7 @@ export interface FileRoutesById {
   '/admin/messages': typeof AdminMessagesRoute
   '/admin/settings': typeof AdminSettingsRoute
   '/portfolio/$slug': typeof PortfolioSlugRoute
+  '/api/public/setup-owner': typeof ApiPublicSetupOwnerRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -141,6 +150,7 @@ export interface FileRouteTypes {
     | '/admin/messages'
     | '/admin/settings'
     | '/portfolio/$slug'
+    | '/api/public/setup-owner'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -155,6 +165,7 @@ export interface FileRouteTypes {
     | '/admin/messages'
     | '/admin/settings'
     | '/portfolio/$slug'
+    | '/api/public/setup-owner'
   id:
     | '__root__'
     | '/'
@@ -169,6 +180,7 @@ export interface FileRouteTypes {
     | '/admin/messages'
     | '/admin/settings'
     | '/portfolio/$slug'
+    | '/api/public/setup-owner'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -180,6 +192,7 @@ export interface RootRouteChildren {
   PortfolioRoute: typeof PortfolioRouteWithChildren
   ServicesRoute: typeof ServicesRoute
   TechnologiesRoute: typeof TechnologiesRoute
+  ApiPublicSetupOwnerRoute: typeof ApiPublicSetupOwnerRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -268,6 +281,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PortfolioSlugRouteImport
       parentRoute: typeof PortfolioRoute
     }
+    '/api/public/setup-owner': {
+      id: '/api/public/setup-owner'
+      path: '/api/public/setup-owner'
+      fullPath: '/api/public/setup-owner'
+      preLoaderRoute: typeof ApiPublicSetupOwnerRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -306,6 +326,7 @@ const rootRouteChildren: RootRouteChildren = {
   PortfolioRoute: PortfolioRouteWithChildren,
   ServicesRoute: ServicesRoute,
   TechnologiesRoute: TechnologiesRoute,
+  ApiPublicSetupOwnerRoute: ApiPublicSetupOwnerRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
