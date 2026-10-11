@@ -2,6 +2,7 @@ import { QueryClient } from "@tanstack/react-query";
 import { createMemoryHistory, createRouter } from "@tanstack/react-router";
 import { describe, expect, it } from "vitest";
 
+import { SITE_URL } from "@/content/site";
 import { routeTree } from "@/routeTree.gen";
 
 async function loadAt(path: string) {
@@ -21,6 +22,11 @@ function failedMatches(matches: Awaited<ReturnType<typeof loadAt>>) {
 // Resolve routes without rendering: jsdom never loads stylesheets, and React
 // holds the whole render until any stylesheet link in the root head loads.
 describe("App routing", () => {
+  it("uses GitHub Pages metadata instead of Lovable branding", () => {
+    expect(SITE_URL).toBe("https://dzmitry11.github.io/pixel-perfect-render-8051");
+    expect(SITE_URL).not.toContain("lovable");
+  });
+
   it("loads the index route without a loader error", async () => {
     const matches = await loadAt("/");
 

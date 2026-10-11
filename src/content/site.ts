@@ -4,7 +4,7 @@ import aiImg from "@/assets/project-ai-assistant.jpg";
 import webappImg from "@/assets/project-webapp.jpg";
 import portraitAsset from "@/assets/dzmitry-nikalayeu.jpg.asset.json";
 
-export const SITE_URL = "https://dzmitry-nikalayeu.lovable.app";
+export const SITE_URL = "https://dzmitry11.github.io/pixel-perfect-render-8051";
 
 /** Real portrait photo, served from CDN storage (see src/assets/dzmitry-nikalayeu.jpg.asset.json). */
 export const portrait = portraitAsset.url;
